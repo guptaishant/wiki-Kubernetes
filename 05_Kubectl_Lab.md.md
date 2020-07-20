@@ -104,12 +104,16 @@ kubectl get pods
 
 #### CP Command
 
-Let's download a dummy SQL file from [here](http://www.sample-videos.com/sql/Sample-SQL-File-10rows.sql)
+Let's download a dummy SQL file from [here](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip)
+
+```shell
+unzip mysqlsampledatabase.zip
+```
 
 Once the SQL file is downloaded, we can copy that file to MySQL container
 
 ```shell
-kubectl cp Sample-SQL-File-10rows.sql mysql-xxxxx:/tmp/
+kubectl cp mysqlsampledatabase.sql mysql-xxxxx:/tmp/
 ```
 
 Let's try to create the table using this SQL file
@@ -120,7 +124,7 @@ kubectl exec -it mysql-xxxx bash
 
 ```shell
 cd /tmp
-mysql -u root -p attendancedb < Sample-SQL-File-10rows.sql
+mysql -u root -p attendancedb < mysqlsampledatabase.sql
 ```
 
 #### Port-Forward Command
