@@ -69,7 +69,7 @@ $ mysql -u root -p
 
 In this step, we are trying to access the shell of the container by using `exec` command.
 
-Download the SQL file from[here](http://www.sample-videos.com/sql/Sample-SQL-File-10rows.sql)
+Download the SQL file from [here](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip)
 
 Once the SQL file is downloaded, we can copy that file to MySQL container
 
