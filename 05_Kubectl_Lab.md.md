@@ -63,7 +63,7 @@ kubectl get pods
 Once we get the name of the pod/container we can read their logs:-
 
 ```shell
-kubectl logs elasticsearch-xxxx
+kubectl logs elasticsearch
 ```
 
 #### Exec Command
@@ -71,7 +71,7 @@ kubectl logs elasticsearch-xxxx
 Let's try to go inside the running container of elasticsearch and validate its functionality.
 
 ```shell
-kubectl exec -it elasticsearch-xxxx bash
+kubectl exec -it elasticsearch bash
 ```
 
 Just like docker, we will use `exec` with `it` mode to access the container
@@ -87,7 +87,7 @@ curl -XGET -u elastic:elastic http://localhost:9200
 Let's delete the complete elasticsearch setup
 
 ```shell
-kubectl delete deployment elasticsearch
+kubectl delete pod elasticsearch
 ```
 
 ## MySQL Setup
@@ -95,7 +95,7 @@ kubectl delete deployment elasticsearch
 Now let's try to setup MySQL on Kubernetes with kubectl client
 
 ```shell
-kubectl run mysql --image=opstree/empms-db:1.0 --replicas=1
+kubectl run mysql --image=opstree/empms-db:1.0 --env MYSQL_DATABASE=attendancedb --replicas=1
 ```
 
 ```shell
@@ -113,13 +113,13 @@ unzip mysqlsampledatabase.zip
 Once the SQL file is downloaded, we can copy that file to MySQL container
 
 ```shell
-kubectl cp mysqlsampledatabase.sql mysql-xxxxx:/tmp/
+kubectl cp mysqlsampledatabase.sql mysql:/tmp/
 ```
 
 Let's try to create the table using this SQL file
 
 ```shell
-kubectl exec -it mysql-xxxx bash
+kubectl exec -it mysql bash
 ```
 
 ```shell
@@ -132,8 +132,10 @@ mysql -u root -p attendancedb < mysqlsampledatabase.sql
 Now let's try to access MySQL from localhost
 
 ```shell
-kubectl port-forward mysql-xxxxx 3306:3306
+kubectl port-forward mysql 3306:3306
 ```
+
+Install mysql-client on your local system
 
 Try to connect to MySQL from the host machine
 
@@ -144,5 +146,5 @@ mysql -u root -p
 Let's delete the setup
 
 ```shell
-kubectl delete deployment mysql
+kubectl delete pod mysql
 ```
