@@ -71,17 +71,21 @@ In this step, we are trying to access the shell of the container by using `exec`
 
 Download the SQL file from [here](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip)
 
+```shell
+unzip mysqlsampledatabase.zip
+```
+
 Once the SQL file is downloaded, we can copy that file to MySQL container
 
 ```shell
-docker cp Sample-SQL-File-10rows.sql mysql:/tmp
+docker cp mysqlsampledatabase.sql mysql:/tmp
 
 docker exec -it mysql bash
 ```
 
 ```shell
 cd /tmp
-mysql -u root -ppassword attendancedb < Sample-SQL-File-10rows.sql
+mysql -u root -ppassword attendancedb < mysqlsampledatabase.sql
 ```
 
 - Start/Stop your container and ensure that data will be retained
