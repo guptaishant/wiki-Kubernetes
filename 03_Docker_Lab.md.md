@@ -7,7 +7,7 @@ Let’s get a crash course on playing with Dockerfile and Docker images.
 - Codebase should be available on your local machine, so we can clone the repo if we haven't done that till now.
 
 ```shell
-git clone git@github.com:opstree/OT-Microservices-Training.git
+git clone https://github.com/opstree/OT-Microservices-Training.git
 ```
 
 - **We are using opstree as docker hub account for building the image, we strongly recommend to use your own docker hub account.**
