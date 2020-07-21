@@ -16,7 +16,7 @@ What you will not have is advanced deployment features such as:
 
 **So we are going to use <name> value "tony-stark" in our case. You must change it according to you**
 
-### Important:- We are assuming that you guys have already created the Deployment and Services. If not, please refer here for [Deployment](https://github.com/opstree/OT-Microservices-Training/wiki/09_Deployment_Lab) and [Service](https://github.com/opstree/OT-Microservices-Training/wiki/08_Service_Lab)
+### Important:- We are assuming that you guys have already created the Deployment and Services. If not, please refer here for [Deployment](https://github.com/opstree/OT-Microservices-Training/wiki/09_Deployment_Lab) and [Service](https://github.com/opstree/OT-Microservices-Training/wiki/08_Service_Lab). Make sure you only create Deployment and Service not Replicasets.
 
 ## Enable Ingress Minikube
 
