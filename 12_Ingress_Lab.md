@@ -61,38 +61,6 @@ Validate the ingress
 kubectl get ingress
 ```
 
-## Attendance
-
-We have to create ingress manifest for attendance with name `attendance-ingress.yaml`
-
-```yaml
-apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
-kind: Ingress
-metadata:
-  name: attendance-ingress
-spec:
-  rules:
-  - host: tony-stark.k8slearning.io
-    http:
-      paths:
-      - path: /attendance
-        backend:
-          serviceName: empms-gateway
-          servicePort: 8080
-```
-
-Create the attendance ingress resource.
-
-```shell
-kubectl apply -f attendance-ingress.yaml
-```
-
-Validate the ingress
-
-```shell
-kubectl get ingress
-```
-
 ## Gateway
 
 We have to create ingress manifest for a gateway with name `gateway-ingress.yaml`
@@ -107,7 +75,7 @@ spec:
   - host: tony-stark.k8slearning.io
     http:
       paths:
-      - path: /gateway
+      - path: /attendance
         backend:
           serviceName: empms-gateway
           servicePort: 8080
