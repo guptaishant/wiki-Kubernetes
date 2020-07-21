@@ -61,6 +61,10 @@ spec:
     port: 9200
 ```
 
+```shell
+kubectl apply -f elastic-service.yaml
+```
+
 ## Salary
 
 We have to create the salary component with readiness and liveness probe.
