@@ -220,8 +220,9 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: gateway-config
-          mountPath: /app/config
+        - mountPath: /app/config/application.yml
+          name: gateway-config
+          subPath: application.yml
       volumes:
         - name: gateway-config
           configMap:
