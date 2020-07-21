@@ -1,4 +1,4 @@
-# K8s | Probes Lab
+# K8s | Probes
 
 **Problem Statement:-**
 
@@ -6,7 +6,7 @@ In this lab, we will use liveness and readiness probes to ensure that k8s to han
 - Salary, Employee, Attendance, Gateway
 - Identify the difference in deployment with and without readiness probe
 
-By the end of this lab, you will have a clear understanding of probes and how important a role they play in a fully functional app.
+By the end of this lab, you will have clear understanding of probes and how important a role they play in a fully functional app.
 
 **What you will not have yet is control in terms of allocation of pods in your k8s cluster**
 
@@ -44,7 +44,7 @@ spec:
 kubectl apply -f elastic-deployment.yaml
 ```
 
-Once after that, we need to create the service of elasticsearch
+Once after that we need to create the service of elasticsearch
 
 ```yaml
 ---
@@ -147,74 +147,6 @@ You can watch it by
 kubectl get pod -w
 ```
 
-## Employee
-
-Since we have validated and understood the concept of readiness and liveness. We can add it to other applications as well.
-
-```yaml
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: empms-employee
-  name: empms-employee
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: empms-employee
-  template:
-    metadata:
-      labels:
-        app: empms-employee
-    spec:
-      containers:
-      - image: opstree/empms-employee:1.0
-        imagePullPolicy: Always
-        name: empms-employee
-        ports:
-        - containerPort: 8083
-        livenessProbe:
-          httpGet:
-            path: /employee/healthz
-            port: 8083
-          initialDelaySeconds: 3
-          periodSeconds: 3
-          successThreshold: 1
-          timeoutSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /employee/healthz
-            port: 8083
-          initialDelaySeconds: 3
-          periodSeconds: 3
-          successThreshold: 1
-          timeoutSeconds: 10
-```
-
-```yaml
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: empms-employee
-spec:
-  type: ClusterIP
-  selector:
-    app: empms-employee
-  ports:
-  - protocol: TCP
-    port: 8083
-```
-
-Now create the deployment and service for employee
-
-```shell
-kubectl apply -f employee-deployment.yaml
-kubectl apply -f employee-svc.yaml
-```
-
 ## Attendance
 
 Update the attendance Deployment manifest.
@@ -276,10 +208,7 @@ kubectl get pods
 
 **Make sure empms-db is deployed otherwise readiness check will fail. You can refer [deployment](https://github.com/opstree/OT-Microservices-Training/wiki/09_Deployment_Lab) and [service](https://github.com/opstree/OT-Microservices-Training/wiki/08_Service_Lab)**
 
-
-## Gateway
-
-Update gateway Deployment manifest
+Now let's try to update the image version of attendance
 
 ```yaml
 ---
@@ -287,51 +216,48 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: empms-gateway
-  name: empms-gateway
+    app: empms-attendance
+  name: empms-attendance
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: empms-gateway
+      app: empms-attendance
   template:
     metadata:
       labels:
-        app: empms-gateway
+        app: empms-attendance
     spec:
       containers:
-      - image: opstree/empms-gateway:1.0
+      - image: opstree/empms-attendance:2.0
         imagePullPolicy: Always
-        name: empms-gateway
+        name: empms-attendance
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
         livenessProbe:
           httpGet:
-            path: /health
-            port: 8080
+            path: /attendance/healthz
+            port: 8081
           initialDelaySeconds: 3
           periodSeconds: 3
           successThreshold: 1
           timeoutSeconds: 10
         readinessProbe:
           httpGet:
-            path: /health
-            port: 8080
+            path: /attendance/healthz
+            port: 8081
           initialDelaySeconds: 3
           periodSeconds: 3
           successThreshold: 1
           timeoutSeconds: 10
 ```
 
-Create a resource from this manifest.
-
 ```shell
-kubectl apply -f gateway-deployment.yaml
+kubectl apply -f attendance-deployment.yaml
 ```
 
-Validate the service
+To watch the changes for deployment
 
 ```shell
-kubectl get deployments
-kubectl get pods
+kubectl get pods -w
 ```
