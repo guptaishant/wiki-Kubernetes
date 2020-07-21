@@ -3,10 +3,10 @@
 **Problem Statement:-**
 
 In this lab, we will use liveness and readiness probes to ensure that k8s to handle the availability of microservices. Implement readiness & liveness for all of our microservice:
-- Salary, Employee, Attendance, Gateway
+- Salary, Attendance
 - Identify the difference in deployment with and without readiness probe
 
-By the end of this lab, you will have clear understanding of probes and how important a role they play in a fully functional app.
+By the end of this lab, you will have a clear understanding of probes and how important a role they play in a fully functional app.
 
 **What you will not have yet is control in terms of allocation of pods in your k8s cluster**
 
