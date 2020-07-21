@@ -118,3 +118,27 @@ Verify the pods
 ```shell
 kubectl get pods
 ```
+
+## Validation
+
+Let's try to delete and re-create the deployment and see if data persists.
+
+```shell
+kubectl delete -f mysql-deployment.yaml
+```
+
+```shell
+kubectl apply -f mysql-deployment.yaml
+```
+
+```shell
+kubectl exec -it empms-db-xxx bash
+```
+
+```shell
+mysql -u root -p
+```
+
+```SQL
+SHOW DATABASES;
+```
