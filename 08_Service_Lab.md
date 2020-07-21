@@ -285,6 +285,10 @@ Now let's verify the service
 kubectl get svc
 ```
 
+```shell
+minikube service empms-webserver
+```
+
 We can use the LoadBalancer public IP to access the application from the web browser.
 
 ## Automated Deployment Test
