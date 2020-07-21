@@ -77,8 +77,8 @@ spec:
       paths:
       - path: /attendance
         backend:
-          serviceName: empms-attendance
-          servicePort: 8081
+          serviceName: empms-gateway
+          servicePort: 8080
 ```
 
 Create the attendance ingress resource.
