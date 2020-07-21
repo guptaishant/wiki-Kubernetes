@@ -72,7 +72,7 @@ metadata:
   labels:
     app: empms-attendance
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: empms-attendance
@@ -108,7 +108,7 @@ metadata:
   labels:
     app: empms-gateway
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: empms-gateway
