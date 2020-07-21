@@ -23,6 +23,7 @@ What you will not have is advanced deployment features such as:
 We have to install the ingress in minikube, but it is pretty much straight-forward.
 
 ```shell
+minikube start --vm=true
 minikube addons enable ingress
 ```
 
