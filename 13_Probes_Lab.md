@@ -44,7 +44,7 @@ spec:
 kubectl apply -f elastic-deployment.yaml
 ```
 
-Once after that we need to create the service of elasticsearch
+Once after that, we need to create the service of elasticsearch
 
 ```yaml
 ---
@@ -194,7 +194,7 @@ kubectl get pods
 
 **Make sure empms-db is deployed otherwise readiness check will fail. You can refer [deployment](https://github.com/opstree/OT-Microservices-Training/wiki/09_Deployment_Lab) and [service](https://github.com/opstree/OT-Microservices-Training/wiki/08_Service_Lab)**
 
-Now let's try to update the image version of attendance
+Now let's try to update the image version of the attendance
 
 ```yaml
 ---
@@ -232,7 +232,7 @@ To watch the changes for deployment
 kubectl get pods -w
 ```
 
-**Now if you see the second version image pod comes up without any validation.***
+**Now if you see the second version image pod comes up without any validation.**
 
 #### Deployment with Probe
 
@@ -299,9 +299,9 @@ To watch the changes for deployment
 kubectl get pods -w
 ```
 
-**In this case, application is waiting for few minutes for readiness and liveness check to pass and once the status is success it deletes the previous version, but if the check is failing it will not live the second version of image.**
+**In this case, the application is waiting for few minutes for readiness and liveness check to pass and once the status is the success then it deletes the previous version, but if the check is failing it will not live the second version of the image.**
 
-Let's try again by updating the version of image.
+Let's try again by updating the version of the image.
 
 ```yaml
 ---
