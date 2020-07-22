@@ -1,9 +1,9 @@
-# K8s | Probes
+# K8s | Probes Lab
 
 **Problem Statement:-**
 
 In this lab, we will use liveness and readiness probes to ensure that k8s to handle the availability of microservices. Implement readiness & liveness for all of our microservice:
-- Salary, Attendance
+- Salary, Employee, Attendance, Gateway
 - Identify the difference in deployment with and without readiness probe
 
 By the end of this lab, you will have a clear understanding of probes and how important a role they play in a fully functional app.
@@ -149,6 +149,93 @@ kubectl get pod -w
 
 ## Attendance
 
+#### Deployment Without Probes
+
+Update the attendance Deployment manifest.
+
+```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: empms-attendance
+  name: empms-attendance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: empms-attendance
+  template:
+    metadata:
+      labels:
+        app: empms-attendance
+    spec:
+      containers:
+      - image: opstree/empms-attendance:1.0
+        imagePullPolicy: Always
+        name: empms-attendance
+        ports:
+        - containerPort: 8081
+```
+
+Create a resource from this manifest.
+
+```shell
+kubectl apply -f attendance-deployment.yaml
+```
+
+Validate the service
+
+```shell
+kubectl get deployments
+kubectl get pods
+```
+
+**Make sure empms-db is deployed otherwise readiness check will fail. You can refer [deployment](https://github.com/opstree/OT-Microservices-Training/wiki/09_Deployment_Lab) and [service](https://github.com/opstree/OT-Microservices-Training/wiki/08_Service_Lab)**
+
+Now let's try to update the image version of attendance
+
+```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: empms-attendance
+  name: empms-attendance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: empms-attendance
+  template:
+    metadata:
+      labels:
+        app: empms-attendance
+    spec:
+      containers:
+      - image: opstree/empms-attendance:2.0
+        imagePullPolicy: Always
+        name: empms-attendance
+        ports:
+        - containerPort: 8081
+```
+
+```shell
+kubectl apply -f attendance-deployment.yaml
+```
+
+To watch the changes for deployment
+
+```shell
+kubectl get pods -w
+```
+
+**Now if you see the second version image pod comes up without any validation.***
+
+#### Deployment with Probe
+
 Update the attendance Deployment manifest.
 
 ```yaml
@@ -206,9 +293,15 @@ kubectl get deployments
 kubectl get pods
 ```
 
-**Make sure empms-db is deployed otherwise readiness check will fail. You can refer [deployment](https://github.com/opstree/OT-Microservices-Training/wiki/09_Deployment_Lab) and [service](https://github.com/opstree/OT-Microservices-Training/wiki/08_Service_Lab)**
+To watch the changes for deployment
 
-Now let's try to update the image version of attendance
+```shell
+kubectl get pods -w
+```
+
+**In this case, application is waiting for few minutes for readiness and liveness check to pass and once the status is success it deletes the previous version, but if the check is failing it will not live the second version of image.**
+
+Let's try again by updating the version of image.
 
 ```yaml
 ---
@@ -252,8 +345,17 @@ spec:
           timeoutSeconds: 10
 ```
 
+Create a resource from this manifest.
+
 ```shell
 kubectl apply -f attendance-deployment.yaml
+```
+
+Validate the service
+
+```shell
+kubectl get deployments
+kubectl get pods
 ```
 
 To watch the changes for deployment
